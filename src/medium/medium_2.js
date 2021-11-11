@@ -176,10 +176,10 @@ export const allCarStats = {
      for(const [key, value] of Object.entries(obj)){
         //  console.log(typeof(obj[key]["hybrid"]["city"]))
         //  console.log(obj[key]["hybrid"]["city"])
-         obj[key]["hybrid"]["city"] = getStatistics(obj[key]["hybrid"]["city"]).mean
-         obj[key]["hybrid"]["highway"] = getStatistics(obj[key]["hybrid"]["highway"]).mean
-         obj[key]["notHybrid"]["city"] = getStatistics(obj[key]["notHybrid"]["city"]).mean
-         obj[key]["notHybrid"]["city"] = getStatistics(obj[key]["notHybrid"]["highway"]).mean
+        //  obj[key]["hybrid"]["city"] = getStatistics(obj[key]["hybrid"]["city"]).mean
+        //  obj[key]["hybrid"]["highway"] = getStatistics(obj[key]["hybrid"]["highway"]).mean
+        //  obj[key]["notHybrid"]["city"] = getStatistics(obj[key]["notHybrid"]["city"]).mean
+        //  obj[key]["notHybrid"]["city"] = getStatistics(obj[key]["notHybrid"]["highway"]).mean
         
          
 
