@@ -19,31 +19,37 @@ see under the methods section
  *
  * @param {allCarStats.ratioHybrids} ratio of cars that are hybrids
  */
+function getAvgMpg() {
+    let sumMPG = 0
+    mpg_data.forEach(o => {
+        sumMPG += o.city_mpg
+        sumMPG += o.highway_mpg
+    })
+    return sumMPG / 2 / mpg_data.length
+};
+
+function getAllYearStats() {
+    let years = []
+    mpg_data.forEach(o => {
+        years.push(o.year)
+    })
+    return getStatistics(years)
+};
+
+function getRatioHybrids() {
+    let sumH = 0
+    mpg_data.forEach(o => {
+        if(o.hybrid){
+            sumH++;
+        }
+    })
+    return mpg_data.length / sumH
+};
+
 export const allCarStats = {
-    avgMpg: function() {
-        let sumMPG = 0
-        mpg_data.forEach(o => {
-            sumMPG += o.city_mpg
-            sumMPG += o.highway_mpg
-        })
-        return sumMPG / 2 / mpg_data.length
-    },
-    allYearStats: function() {
-        let years = []
-        mpg_data.forEach(o => {
-            years.push(o.year)
-        })
-        return years
-    },
-    ratioHybrids: function() {
-        let sumH = 0
-        mpg_data.forEach(o => {
-            if(o.hybrid){
-                sumH++;
-            }
-        })
-        return mpg_data.length / sumH
-    },
+    avgMpg: getAvgMpg(),
+    allYearStats: getAllYearStats(),
+    ratioHybrids: getRatioHybrids(),
 };
 
 
@@ -104,7 +110,86 @@ export const allCarStats = {
  *
  * }
  */
+
+ function getMakerHybrids() {
+     let list = []
+     mpg_data.forEach(o => {
+        // console.log(o.make);
+        // console.log(list);
+        let done = false
+        if(o.hybrid){
+            
+            list.forEach(obj => {
+                // console.log(o.id)
+                // console.log(obj.make)
+                if(obj["make"] === o.make){
+                    // console.log(o.make)
+                    obj["hybrids"].push(o.id);
+                    done = true
+
+                }
+                
+            })
+            if(done === false){
+                // console.log(o.classification)
+                let array = []
+                array.push(o.id)
+
+                let obj = {
+                    "make": o.make,
+                    "hybrids": array
+                }
+
+                list.push(obj)
+        }
+
+    }
+     })
+
+     list.sort(function(a,b) {
+         return b["hybrids"].length - a["hybrids"].length  
+     })
+     return list
+ };
+
+ function getAvgMpgByYearAndHybrid(){
+     let obj = {}
+     mpg_data.forEach(o => {
+         if(obj[o.year] === undefined){
+            let city = [55]
+            let highway = []
+             obj[o.year] = {"hybrid": {"city": city, "highway": []}, "notHybrid": {"city": [], "highway": []}}
+
+         }else{
+             if(o.hybrid){
+                 obj[o.year]["hybrid"]["city"].push(o.city_mpg)
+                 obj[o.year]["hybrid"]["highway"].push(o.highway_mpg)
+
+             }else{
+                 obj[o.year]["notHybrid"]["city"].push(o.city_mpg);
+                 obj[o.year]["notHybrid"]["highway"].push(o.highway_mpg)
+
+             }
+         }
+     })
+
+     for(const [key, value] of Object.entries(obj)){
+        //  console.log(typeof(obj[key]["hybrid"]["city"]))
+        //  console.log(obj[key]["hybrid"]["city"])
+         obj[key]["hybrid"]["city"] = getStatistics(obj[key]["hybrid"]["city"]).mean
+         obj[key]["hybrid"]["highway"] = getStatistics(obj[key]["hybrid"]["highway"]).mean
+         obj[key]["notHybrid"]["city"] = getStatistics(obj[key]["notHybrid"]["city"]).mean
+         obj[key]["notHybrid"]["city"] = getStatistics(obj[key]["notHybrid"]["highway"]).mean
+        
+         
+
+
+     }
+
+     return obj
+ }
 export const moreStats = {
-    // makerHybrids: 
-    // avgMpgByYearAndHybrid: undefined
+    makerHybrids: getMakerHybrids(),
+    avgMpgByYearAndHybrid: getAvgMpgByYearAndHybrid()
+
 };
