@@ -49,7 +49,8 @@ function getRatioHybrids() {
             sumH++;
         }
     })
-    return mpg_data.length / sumH
+
+    return sumH / (mpg_data.length - sumH)
 };
 
 export const allCarStats = {
