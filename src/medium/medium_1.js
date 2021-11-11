@@ -58,7 +58,6 @@ export function getMedian(array) {
  }
  */
 export function getStatistics(array) {
-    typeof(array)
     let stats = {}
     stats['length'] = array.length
     stats['sum'] = getSum(array)
@@ -67,16 +66,8 @@ export function getStatistics(array) {
     stats['min'] = Math.min(...array)
     stats['max'] = Math.max(...array)
 
-    let variance = 0;
-
-    array.forEach(item => {
-        variance += Math.pow(Math.abs(item - stats['mean']), 2)
-    })
-
-    variance = variance / array.length;
-
-    stats['variance'] = variance
-    stats['standard_deviation'] = Math.sqrt(variance);
+    stats['variance'] = variance(array, stats['mean'])
+    stats['standard_deviation'] = Math.sqrt(stats['variance']);
 
     return stats
 
