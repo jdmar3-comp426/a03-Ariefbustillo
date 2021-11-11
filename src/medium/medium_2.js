@@ -20,12 +20,18 @@ see under the methods section
  * @param {allCarStats.ratioHybrids} ratio of cars that are hybrids
  */
 function getAvgMpg() {
-    let sumMPG = 0
+    let obj = {}
+
+    let sumMPGC = 0
+    let sumMPGH = 0
     mpg_data.forEach(o => {
-        sumMPG += o.city_mpg
-        sumMPG += o.highway_mpg
+        sumMPGC += o.city_mpg
+        sumMPGH += o.highway_mpg
     })
-    return sumMPG / 2 / mpg_data.length
+    obj["city"] = sumMPGC / mpg_data.length
+    obj["highway"] = sumMPGH / mpg_data.length
+
+    return obj
 };
 
 function getAllYearStats() {
