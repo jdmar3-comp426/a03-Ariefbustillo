@@ -160,7 +160,7 @@ export const allCarStats = {
  };
 
  function getAvgMpgByYearAndHybrid(){
-     let obj = {}
+     var obj = {}
      mpg_data.forEach(o => {
          if(obj[o.year] === undefined){
             let city = [55]
@@ -183,16 +183,18 @@ export const allCarStats = {
      for(const [key, value] of Object.entries(obj)){
         //  console.log(typeof(obj[key]["hybrid"]["city"]))
         //  console.log(obj[key]["hybrid"]["city"])
-        //  obj[key]["hybrid"]["city"] = getStatistics(obj[key]["hybrid"]["city"]).mean
-        //  obj[key]["hybrid"]["highway"] = getStatistics(obj[key]["hybrid"]["highway"]).mean
-        //  obj[key]["notHybrid"]["city"] = getStatistics(obj[key]["notHybrid"]["city"]).mean
-        //  obj[key]["notHybrid"]["city"] = getStatistics(obj[key]["notHybrid"]["highway"]).mean
+         obj[key]["hybrid"]["city"] = getStatistics(obj[key]["hybrid"]["city"]).mean
+         obj[key]["hybrid"]["highway"] = getStatistics(obj[key]["hybrid"]["highway"]).mean
+         obj[key]["notHybrid"]["city"] = getStatistics(obj[key]["notHybrid"]["city"]).mean
+         obj[key]["notHybrid"]["highway"] = getStatistics(obj[key]["notHybrid"]["highway"]).mean
+        //  console.log(obj[key]["notHybrid"]["city"])
+        //  console.log(obj)
         
          
 
 
      }
-
+    //  console.log(obj)
      return obj
  }
 export const moreStats = {
