@@ -155,8 +155,7 @@ export const someEven = (arr, test) => {
  *       -->  { pass: [1, 5, 31], fail: [90] }
  */
 export const filter = (arr, test) => {
-    let obj = {"fail": [],
-               "pass": []}
+    let obj = {"pass": [], "fail": []}
 
     for(let i = 0; i < arr.length; i ++){
         if(test(arr[i]) === true){
