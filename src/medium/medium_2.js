@@ -163,9 +163,9 @@ export const allCarStats = {
      var obj = {}
      mpg_data.forEach(o => {
          if(obj[o.year] === undefined){
-            let city = []
-            let highway = []
-             obj[o.year] = {"hybrid": {"city": city, "highway": []}, "notHybrid": {"city": [], "highway": []}}
+            // let city = []
+            // let highway = []
+             obj[o.year] = {"hybrid": {"city": [], "highway": []}, "notHybrid": {"city": [], "highway": []}}
 
          }else{
              if(o.hybrid){
